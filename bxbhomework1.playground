@@ -1,0 +1,161 @@
+/* 我的第一个 Swift 程序 */
+enum Gender{
+	case male
+	case female
+}
+
+class Person{
+	var firstName:String
+	var lastName:String
+	var age:Int
+	var gender:Gender
+	var fullName:String{
+		return firstName + " " + lastName
+	}
+	
+	init(firstName:String, lastName:String, age:Int,gender:Gender){
+		self.firstName = firstName
+		self.lastName = lastName
+		self.age = age
+		self.gender = gender
+	}
+	convenience init(firstName:String){
+		self.init(firstName:firstName, lastName:"", age:18,gender:Gender.female)
+	}
+	func description() -> String{
+		return "name:\(fullName)   age:\(age)    gender:\(gender)"
+	}
+}
+	
+func == (left:Person, right:Person) -> Bool{
+	if left.fullName == right.fullName && left.age == right.age{
+		return true
+	}
+	else{
+		return false
+	}
+}
+	
+func != (left:Person, right:Person) -> Bool{
+	if left.fullName == right.fullName && left.age == right.age{
+		return false
+	}
+	else{
+		return true
+	}
+}
+
+
+/*
+var person1 = Person(firstName:"bao", lastName:"beibei", age:20, gender:Gender.female)
+var person2 = Person(firstName:"belle")
+var person3 = Person(firstName:"yeeeeee", lastName:"beibei", age:20, gender:Gender.female)
+var person4 = Person(firstName:"belle")
+print(person1.description())
+print(person2.description())
+print(person3.description())
+print(person4.description())
+
+
+if person1 == person3{
+	print("person1 and person3 are the same people")
+}
+else{
+	print("person1 and person3 are the different people")
+}
+
+if person2 != person4{
+	print("person2 and person4 are the different people")
+}
+else{
+	print("person2 and person4 are the same people")
+}
+*/
+
+
+class Teacher:Person{
+	var title:String
+	init(firstName:String, lastName:String, age:Int,gender:Gender,title:String){
+		self.title = title
+		super.init(firstName:firstName, lastName:lastName, age:age,gender:gender)
+	}
+	override func description() -> String{
+		return super.description() + "   title:" + title
+	}
+}
+
+class Student:Person{
+	var stuNo:String
+	init(firstName:String, lastName:String, age:Int, gender:Gender, stuNo: String){
+        self.stuNo = stuNo
+        super.init(firstName:firstName, lastName:lastName, age:age, gender:gender)
+    }
+	override func description() -> String{
+		return super.description() + "   stuNo:" + stuNo
+	}
+}
+
+
+var teacher = Teacher(firstName:"eeee", lastName:"ye", age:20, gender:Gender.male, title:"iOS")
+var student = Student(firstName:"bao", lastName:"beibei", age:20, gender:Gender.female, stuNo:"01")
+print(teacher.description())
+print(student.description())
+
+var person1 = Person(firstName:"eeee", lastName:"ye", age:20, gender:Gender.male)
+var person2 = Person(firstName:"bao", lastName:"jack", age:27, gender:Gender.female)
+var teacher1 = Teacher(firstName:"bao", lastName:"belle", age:23, gender:Gender.female, title:"Java")
+var teacher2 = Teacher(firstName:"bao", lastName:"elsa", age:20, gender:Gender.male, title:"iOS")
+var student1 = Student(firstName:"bao", lastName:"anna", age:24, gender:Gender.female, stuNo:"21")
+var student2 = Student(firstName:"bao", lastName:"beibei", age:18, gender:Gender.female, stuNo:"01")
+var persons = [person1,person2,teacher1,teacher2,student1,student2]
+print(person1.description())
+print(person2.description())
+print(teacher1.description())
+print(teacher2.description())
+print(student1.description())
+print(student2.description())
+print(persons)
+
+var dic = Dictionary<String,Int>()
+var personCount = 0
+var teacherCount = 0
+var studentCount = 0
+for x in persons{
+    personCount = personCount + 1
+    if x is Teacher{
+        teacherCount = teacherCount + 1 
+    }
+    if x is Student{
+        studentCount = studentCount + 1 
+    }
+}
+dic["person"] = personCount
+dic["teacher"] = teacherCount
+dic["Student"] = studentCount
+print(dic)
+
+
+
+
+persons.sort{ $0.age > $1.age }
+for p in persons{
+    print(p.description())
+}
+
+
+persons.sort{ $0.fullName > $1.fullName }
+for p in persons{
+    print(p.description())
+}
+
+/*
+persons.sort{ $0.age+gender > $1.age+gender }
+for p in persons{
+    
+        print( p.description())
+    
+}
+*/
+
+
+
